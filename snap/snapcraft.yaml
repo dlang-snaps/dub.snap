@@ -1,0 +1,105 @@
+name: dub
+version: 1.2.2
+summary: Package and build manager for D applications and libraries
+description: |
+    DUB is a build tool for projects written in the D programming
+    language, with support for automatically retrieving dependencies
+    and integrating them into the build process.
+confinement: classic
+grade: devel
+
+apps:
+  dub:
+    command: bin/dub
+
+parts:
+  dub:
+    source: https://github.com/dlang/dub.git
+    source-tag: v1.2.2
+    source-type: git
+    plugin: dump
+    prepare: DMD=../../../stage/bin/dmd ./build.sh
+    stage:
+    - bin/dub
+    build-packages:
+    - build-essential
+    - libcurl4-gnutls-dev
+    after:
+    - dmd
+    - dmd-config
+    - druntime
+    - phobos
+
+  dmd:
+    source: https://github.com/dlang/dmd.git
+    source-tag: &dmd-version v2.073.2
+    source-type: git
+    plugin: make
+    makefile: posix.mak
+    make-parameters:
+    - AUTO_BOOTSTRAP=1
+    - RELEASE=1
+    organize:
+      linux/bin32: bin
+      linux/bin64: bin
+    stage:
+    - -bin/dmd.conf
+    - -linux
+    - -samples
+    prime:
+    - -*
+    build-packages:
+    - curl
+    - g++
+
+  dmd-config:
+    plugin: dump
+    source: dmd-config
+    organize:
+      dmd.conf: bin/dmd.conf
+    prime:
+    - -*
+
+  druntime:
+    source: https://github.com/dlang/druntime.git
+    source-tag: *dmd-version
+    source-type: git
+    plugin: make
+    makefile: posix.mak
+    make-parameters:
+    - DMD=../../dmd/build/src/dmd
+    organize:
+      src/druntime/import: import/druntime
+    stage:
+    - -src
+    prime:
+    - -*
+    build-packages:
+    - gcc
+    after:
+    - dmd
+
+  phobos:
+    source: https://github.com/dlang/phobos.git
+    source-tag: *dmd-version
+    source-type: git
+    plugin: make
+    makefile: posix.mak
+    make-parameters:
+    - DMD=../../dmd/build/src/dmd
+    - DRUNTIME_PATH=../../druntime/build
+    - VERSION=../../dmd/build/VERSION
+    organize:
+      linux/lib32: lib32
+      linux/lib64: lib64
+      src/phobos: import/phobos
+    stage:
+    - -linux
+    - -src
+    prime:
+    - -*
+    build-packages:
+    - gcc
+    after:
+    - dmd
+    - druntime
