@@ -6,7 +6,7 @@ description: |
     language, with support for automatically retrieving dependencies
     and integrating them into the build process.
 confinement: classic
-grade: devel
+grade: stable
 
 apps:
   dub:
@@ -32,7 +32,7 @@ parts:
 
   dmd:
     source: https://github.com/dlang/dmd.git
-    source-tag: &dmd-version v2.074.0
+    source-tag: &dmd-version v2.074.1
     source-type: git
     plugin: make
     makefile: posix.mak
