@@ -11,6 +11,8 @@ grade: stable
 apps:
   dub:
     command: bin/dub
+    environment: 
+      LD_LIBRARY_PATH: $SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib:$SNAP/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
 parts:
   dub:
@@ -21,9 +23,16 @@ parts:
     prepare: DMD=../../../stage/bin/dmd ./build.sh
     stage:
     - bin/dub
+    - lib/lib*.so*
+    - lib/x86_64-linux-gnu/lib*.so*
+    - usr/lib/lib*.so*
+    - usr/lib/x86_64-linux-gnu/lib*.so*
+    - etc/ldap/*
     build-packages:
     - build-essential
     - libcurl4-gnutls-dev
+    stage-packages:
+    - libcurl3-gnutls
     after:
     - dmd
     - dmd-config
