@@ -11,6 +11,8 @@ grade: stable
 apps:
   dub:
     command: bin/dub
+    environment:
+      LD_LIBRARY_PATH: $SNAP/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib:$SNAP/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
 parts:
   dub:
@@ -29,6 +31,11 @@ parts:
     - dmd-config
     - druntime
     - phobos
+
+  curl:
+    plugin: nil
+    stage-packages:
+    - libcurl3-gnutls
 
   dmd:
     source: https://github.com/dlang/dmd.git

@@ -5,6 +5,10 @@ DUB is released under the MIT License.  It statically links in druntime
 and phobos (the D standard library), which are both released under the
 Boost Software License (Version 1.0).
 
+This package also bundles `libcurl3-gnutls` and its dependencies.  Copyright
+and licensing information for these libraries can be found in the `copyright`
+files in the `usr/share/doc/*` directories inside the package.
+
 
 Full license texts
 ==================
