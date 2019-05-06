@@ -39,7 +39,7 @@ parts:
 
   dmd:
     source: https://github.com/dlang/dmd.git
-    source-tag: &dmd-version v2.085.0
+    source-tag: &dmd-version v2.086.0
     source-type: git
     plugin: make
     makefile: posix.mak
