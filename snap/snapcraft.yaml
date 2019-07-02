@@ -1,5 +1,5 @@
 name: dub
-version: 1.15.0
+version: 1.16.0
 summary: Package and build manager for D applications and libraries
 description: |
     DUB is a build tool for projects written in the D programming
@@ -17,7 +17,7 @@ apps:
 parts:
   dub:
     source: https://github.com/dlang/dub.git
-    source-tag: v1.15.0
+    source-tag: v1.16.0
     source-type: git
     plugin: dump
     prepare: DMD=../../../stage/bin/dmd ./build.sh
@@ -39,7 +39,7 @@ parts:
 
   dmd:
     source: https://github.com/dlang/dmd.git
-    source-tag: &dmd-version v2.086.0
+    source-tag: &dmd-version v2.086.1
     source-type: git
     plugin: make
     makefile: posix.mak
