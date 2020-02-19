@@ -32,6 +32,12 @@ parts:
     - druntime
     - phobos
 
+  dub-license:
+    plugin: dump
+    source: doc
+    organize:
+      LICENSE: doc/LICENSE
+
   curl:
     plugin: nil
     stage-packages:
