@@ -5,8 +5,11 @@ description: |
     DUB is a build tool for projects written in the D programming
     language, with support for automatically retrieving dependencies
     and integrating them into the build process.
+
+base: core
 confinement: classic
 grade: stable
+license: MIT AND BSL-1.0
 
 apps:
   dub:
@@ -20,7 +23,9 @@ parts:
     source-tag: v1.19.0
     source-type: git
     plugin: dump
-    prepare: DMD=../../../stage/bin/dmd ./build.sh
+    override-build: |
+        DMD=../../../stage/bin/dmd ./build.sh
+        snapcraftctl build
     stage:
     - bin/dub
     build-packages:
