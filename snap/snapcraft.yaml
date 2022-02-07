@@ -6,7 +6,7 @@ description: |
     language, with support for automatically retrieving dependencies
     and integrating them into the build process.
 
-base: core
+base: core18
 confinement: classic
 grade: stable
 license: MIT AND BSL-1.0
